@@ -1,0 +1,51 @@
+body {
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.btn-primary, .btn-success {
+    background-color: #00b129 !important; /* Verde */
+    border-color: #00b129 !important;
+}
+
+.btn-primary:hover, .btn-success:hover {
+    background-color: #008f21 !important; /* Verde escuro */
+    border-color: #008f21 !important;
+}
+
+div form a {
+    color: #00b129 !important;
+}
+
+.login-container, .card-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+.header-title {
+    color: #00b129;
+}
+
+footer {
+    background-color: #00b129;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    margin-top: auto; /* Empurra o footer para o final da página */
+}
+
+/* Tamanho fixo para os botões */
+.option-button {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+}
