@@ -1,0 +1,38 @@
+body {
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.btn-primary, .btn-success {
+    background-color: #00b129 !important; /* Verde */
+    border-color: #00b129 !important;
+}
+
+.btn-primary:hover, .btn-success:hover {
+    background-color: #008f21 !important; /* Verde escuro */
+    border-color: #008f21 !important;
+}
+
+.header-title {
+    color: #00b129;
+}
+
+.table thead th {
+    color: #ffffff;
+    background-color: #00b129;
+}
+
+.table tbody tr:hover {
+    background-color: #e9f5ec;
+}
+
+footer {
+    background-color: #00b129;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    margin-top: auto; /* Empurra o footer para o final da página */
+}
