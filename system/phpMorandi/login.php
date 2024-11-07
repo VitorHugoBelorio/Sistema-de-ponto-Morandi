@@ -21,20 +21,25 @@
         $senha = $_POST['senha'];
 
         // Preparando a consulta SQL para buscar o colaborador pelo email
-        $stmt = $conn->prepare("SELECT senha FROM colaborador WHERE email = ?");
+        $stmt = $conn->prepare("SELECT senha, organizador FROM colaborador WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->store_result();
 
         // Verifica se o email existe no banco de dados
         if ($stmt->num_rows > 0) {
-            $stmt->bind_result($senha_db);
+            $stmt->bind_result($senha_db, $is_organizador);
             $stmt->fetch();
 
             // Compara a senha informada com a senha armazenada
             if ($senha === $senha_db) {
-                // Login bem-sucedido: redireciona o usuário para a página principal
-                header("Location: http://localhost/html/indexHomeOrganizador.html");
+                
+                // Verifica o valor de 'organizador' para redirecionar o usuário com base no tipo
+                if ($is_organizador == 1) { // Se o colaborador for um organizador
+                    header("Location: http://localhost/html/indexHomeOrganizador.html");
+                } else { // Se o colaborador for comum
+                    header("Location: http://localhost/html/indexHomeFuncionario.html");
+                }
                 exit;
             } else {
                 // Senha incorreta
