@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/styleRecuperarSenha.css">
     <title>Login</title>
 </head>
 
@@ -18,30 +18,17 @@
             <span class="navbar-toggler-icon"></span>
         </button>
     </nav>
-
     <div class="login-container">
-        <h2 class="text-center">Login</h2>
-
-        <!-- Exibe a mensagem de erro apenas se o parâmetro "erro" estiver na URL
-        <?php if (isset($_GET['erro']) && $_GET['erro'] == 1): ?>
-            <div class="alert alert-danger text-center">
-                Senha ou e-mail incorretos. Tente novamente.
-            </div>
-        <?php endif; ?>
-        -->
-
-        <form action="http://localhost/phpMorandi/login.php" method="POST">
+        <h2 class="text-center">Recuperar senha</h2>
+        <form>
             <div class="form-group">
                 <label for="email">E-mail</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
+                <input type="email" class="form-control" id="email" placeholder="Digite seu e-mail" required>
             </div>
-            <div class="form-group">
-                <label for="senha">Senha</label>
-                <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" required>
-            </div>
-            <button type="submit" class="btn btn-success btn-block">Entrar</button>
+
+            <a href="indexHomeOrganizador.html"><button type="submit" class="btn btn-primary btn-block">Entrar</button></a>
             <div class="text-center mt-3">
-                <a href="html/indexRecuperarSenha.html">Esqueceu a senha?</a>
+                <a href="../index.php">Voltar ao login</a>
             </div>
         </form>
     </div>

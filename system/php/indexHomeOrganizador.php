@@ -1,3 +1,7 @@
+<?php
+include('loginPHP/verifica_login.php'); // impede que o usuário entre sem realizar o login
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -12,7 +16,7 @@
 <header class="bg-white p-3 text-center border-bottom">
     <div class="container d-flex justify-content-between align-items-center">
         <h1 class="header-title">Sistema de Ponto Eletrônico</h1>
-        <a href="../index.html" class="btn btn-primary">Sair</a>
+        <a href="logoutPHP/logout.php" class="btn btn-primary">Sair</a>
     </div>
 </header>
 
