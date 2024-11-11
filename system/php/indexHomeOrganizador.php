@@ -26,22 +26,24 @@ include('loginPHP/verifica_login.php'); // impede que o usuário entre sem reali
         <div class="text-center mb-4">
             <h2 class="header-title">Acesso do Dono da Empresa</h2>
         </div>
-        <div class="row">
-            <div class="col-md-6 col-lg-3 mb-3">
+        <div class="row justify-content-center">
+            <div class="col-md-3 col-sm-6 mb-3">
                 <a href="indexCadastrarFuncionario.php" class="btn btn-success w-100 py-3">Cadastrar Funcionário</a>
             </div>
-            <div class="col-md-6 col-lg-3 mb-3">
+            <div class="col-md-3 col-sm-6 mb-3">
+                <a href="indexCadastrarOrganizador.php" class="btn btn-success w-100 py-3">Cadastrar Organizador</a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3">
                 <a href="indexRemoverFuncionario.php" class="btn btn-success w-100 py-3">Remover Funcionário</a>
             </div>
-            <div class="col-md-6 col-lg-3 mb-3">
+            <div class="col-md-3 col-sm-6 mb-3">
                 <a href="indexConfigurar.php" class="btn btn-success w-100 py-3">Configurar Horários</a>
             </div>
-            <div class="col-md-6 col-lg-3 mb-3">
+            <div class="col-md-3 col-sm-6 mb-3">
                 <a href="indexRelatorio.php" class="btn btn-success w-100 py-3">Gerar Relatório</a>
             </div>
         </div>
     </div>
-
 </div>
 
 <!-- Rodapé -->
