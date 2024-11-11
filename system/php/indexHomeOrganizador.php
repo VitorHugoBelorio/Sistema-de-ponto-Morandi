@@ -28,16 +28,16 @@ include('loginPHP/verifica_login.php'); // impede que o usuário entre sem reali
         </div>
         <div class="row">
             <div class="col-md-6 col-lg-3 mb-3">
-                <a href="indexCadastrarFuncionario.html" class="btn btn-success w-100 py-3">Cadastrar Funcionário</a>
+                <a href="indexCadastrarFuncionario.php" class="btn btn-success w-100 py-3">Cadastrar Funcionário</a>
             </div>
             <div class="col-md-6 col-lg-3 mb-3">
-                <a href="indexRemoverFuncionario.html" class="btn btn-success w-100 py-3">Remover Funcionário</a>
+                <a href="indexRemoverFuncionario.php" class="btn btn-success w-100 py-3">Remover Funcionário</a>
             </div>
             <div class="col-md-6 col-lg-3 mb-3">
-                <a href="indexConfigurar.html" class="btn btn-success w-100 py-3">Configurar Horários</a>
+                <a href="indexConfigurar.php" class="btn btn-success w-100 py-3">Configurar Horários</a>
             </div>
             <div class="col-md-6 col-lg-3 mb-3">
-                <a href="indexRelatorio.html" class="btn btn-success w-100 py-3">Gerar Relatório</a>
+                <a href="indexRelatorio.php" class="btn btn-success w-100 py-3">Gerar Relatório</a>
             </div>
         </div>
     </div>
