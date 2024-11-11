@@ -8,16 +8,16 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Funcionário - Sistema de Ponto Eletrônico</title>
+    <title>Cadastrar Organizador - Sistema de Ponto Eletrônico</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/styleCadastroFuncionario.css">
+    <link rel="stylesheet" href="../css/styleCadastroOrganizador.css">
 </head>
 
 <body>
     <!-- Cabeçalho -->
     <header class="bg-white p-3 text-center border-bottom">
         <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="header-title">Cadastrar Novo Funcionário</h1>
+            <h1 class="header-title">Cadastrar Novo Organizador</h1>
             <a href="indexHomeOrganizador.php" class="btn btn-primary">Voltar</a>
         </div>
     </header>
@@ -39,7 +39,7 @@ session_start();
     <!-- Formulário de Cadastro -->
     <div class="container my-5 card-container">
         <h2 class="text-center mb-4">Cadastro de Funcionário</h2>
-        <form action="cadastrarFuncionarioPHP/cadastrarFuncionario.php" method="POST">
+        <form action="cadastrarOrganizadorPHP/cadastrarOrganizador.php" method="POST">
             <div class="mb-3">
                 <label for="nomeCompleto" class="form-label">Nome Completo</label>
                 <input type="text" class="form-control" id="nomeCompleto" name="nomeCompleto" placeholder="Digite o nome completo" required>
