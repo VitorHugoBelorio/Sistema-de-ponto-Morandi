@@ -32,7 +32,7 @@ INSERT INTO funcionario VALUES (
     1
 );
 
-INSERT INTO colaborador VALUES (
+INSERT INTO funcionario VALUES (
     "22233344455",
     "Ronaldo",
     MD5("1234"),  -- Aplica o hash MD5 à senha "1234"
