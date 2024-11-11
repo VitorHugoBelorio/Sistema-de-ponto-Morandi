@@ -18,7 +18,7 @@ $email = mysqli_real_escape_string($conexao, $_POST['email']);
 $senha = substr($cpf, -4); // Extrai os últimos 4 dígitos do CPF
 
 // Insira os dados no banco de dados, incluindo a senha gerada
-$query = "INSERT INTO funcionario (pk_funcionario_cpf, nome, senha, email, data_do_registro, cargo) VALUES ('$cpf', '$nomeCompleto', MD5('$senha'), '$email', NOW(), 0);";
+$query = "INSERT INTO funcionario (pk_funcionario_cpf, nome, senha, email, data_do_registro, cargo) VALUES ('$cpf', '$nomeCompleto', MD5('$senha'), '$email', NOW(), 1);";
 
 
 if(mysqli_query($conexao, $query)) {
