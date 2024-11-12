@@ -5,9 +5,10 @@ drop database ponto_morandi;
 
 USE ponto_morandi;
 
--- Cria a tabela
-CREATE TABLE IF NOT EXISTS funcionario(
-    pk_funcionario_cpf CHAR(14) NOT NULL,
+-- Criação da tabela funcionario
+CREATE TABLE IF NOT EXISTS funcionario (
+    id_funcionario INT AUTO_INCREMENT PRIMARY KEY, -- Se auto incrementa, não precisa passar (usado para referenciar na hora de bater o ponto)
+    pk_funcionario_cpf CHAR(14) NOT NULL UNIQUE,  -- Define o CPF como único
     nome VARCHAR(100) NOT NULL,
     senha CHAR(32) NOT NULL,  -- Define senha como CHAR(32) para armazenar o hash MD5
     email VARCHAR(200) NOT NULL,
@@ -15,28 +16,10 @@ CREATE TABLE IF NOT EXISTS funcionario(
     cargo TINYINT(1) NOT NULL
 );
 
-DROP TABLE funcionario;
+-- Inserção dos registros
+INSERT INTO funcionario (pk_funcionario_cpf, nome, senha, email, data_do_registro, cargo) VALUES
+    ("12345677788", "Vitor Hugo Belório Simão", MD5("1234"), "vitor@gmail.com", NOW(), 1),
+    ("22233344455", "Ronaldo", MD5("1234"), "ronaldo@gmail.com", NOW(), 0);
 
--- Traz as informações que foram inseridas para conferir se houve o registro
-SELECT *
-FROM funcionario;
-
-USE ponto_morandi;
-
-INSERT INTO funcionario VALUES (
-    "12345677788",
-    "Vitor Hugo Belório Simão",
-    MD5("1234"),  -- Aplica o hash MD5 à senha "1234"
-    "vitor@gmail.com",
-    NOW(),
-    1
-);
-
-INSERT INTO funcionario VALUES (
-    "22233344455",
-    "Ronaldo",
-    MD5("1234"),  -- Aplica o hash MD5 à senha "1234"
-    "ronaldo@gmail.com",
-    NOW(),
-    0
-);
+-- Seleção para verificação dos dados inseridos
+SELECT * FROM funcionario;

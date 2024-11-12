@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -5,11 +9,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/stylePonto.css">
+    <link rel="stylesheet" href="../../css/stylePonto.css">
     <title>Ponto</title>
 </head>
 
 <body>
+    <!-- Exibe a mensagem de sucesso se 'mensagem_sucesso' estiver definida -->
+    <?php
+    if (isset($_SESSION['mensagem_sucesso'])) :
+    ?>
+        <div class="alert alert-success text-center">
+            <?php echo $_SESSION['mensagem_sucesso']; ?>
+        </div>
+    <?php
+        unset($_SESSION['mensagem_sucesso']);
+    endif;
+    ?>
+
+    <!-- Exibe a mensagem de erro se 'mensagem_erro' estiver definida -->
+    <?php
+    if (isset($_SESSION['mensagem_erro'])) :
+    ?>
+        <div class="alert alert-danger text-center">
+            <?php echo $_SESSION['mensagem_erro']; ?>
+        </div>
+    <?php
+        unset($_SESSION['mensagem_erro']);
+    endif;
+    ?>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Ponto</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
@@ -24,32 +52,38 @@
     </nav>
 
     <div class="login-container">
-        <div id="relogio"></div>
-        <form>
+        <div id="relogio">Carregando hora...</div>
+        <form action="baterPontoPHP/baterPonto.php" method="POST">
             <div class="form-group">
                 <label for="senha">Senha</label>
-                <input type="password" class="form-control" id="senha" placeholder="Digite sua senha" required>
+                <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" required>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Registrar</button>
         </form>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
-        function atualizarRelogio() {
-            const agora = new Date();
-            const horas = String(agora.getHours()).padStart(2, '0');
-            const minutos = String(agora.getMinutes()).padStart(2, '0');
-            const segundos = String(agora.getSeconds()).padStart(2, '0');
-            document.getElementById('relogio').textContent = `${horas}:${minutos}:${segundos}`;
+        function atualizarHora() {
+            $.ajax({
+                url: 'baterPontoPHP/hora.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#relogio').text(data.hora);
+                },
+                error: function() {
+                    $('#relogio').text('Erro ao carregar a hora');
+                }
+            });
         }
 
-        setInterval(atualizarRelogio, 1000);
-        atualizarRelogio(); // Chama uma vez para não esperar 1 segundo
-    </script>
+        // Atualiza a hora a cada segundo
+        setInterval(atualizarHora, 1000);
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        // Carrega a hora imediatamente ao carregar a página
+        atualizarHora();
+    </script>
 </body>
 
 </html>
