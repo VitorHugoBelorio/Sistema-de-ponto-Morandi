@@ -18,7 +18,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="indexHomeFuncionario.html">Home</a>
+                <a class="nav-item nav-link" href="indexHomeFuncionario.php">Home</a>
             </div>
         </div>
     </nav>
