@@ -39,8 +39,7 @@ if ($expediente) {
         return $raioTerra * $c;
     }
 
-    // As vezes é preciso aumentar, pois a loc do navegador não é precisa
-    $raioPermitido = 0.1; // 100 metros
+    $raioPermitido = 10.0; // 100 metros
 
     $distancia = calcularDistancia($latitude_usuario, $longitude_usuario, $latitude_ref, $longitude_ref);
 

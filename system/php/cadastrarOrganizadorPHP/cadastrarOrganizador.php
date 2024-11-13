@@ -5,7 +5,7 @@ include('../../conexao.php'); // Certifique-se de que o caminho está correto
 // Verifique se os campos necessários foram preenchidos
 if(empty($_POST['nomeCompleto']) || empty($_POST['cpf']) || empty($_POST['email'])){
     $_SESSION['mensagem'] = true;
-    header('Location: ../indexCadastrarOrganizador.php');
+    header('Location: ../indexCadastrarFuncionario.html');
     exit();
 }
 
@@ -23,10 +23,10 @@ $query = "INSERT INTO funcionario (pk_funcionario_cpf, nome, senha, email, data_
 
 if(mysqli_query($conexao, $query)) {
     $_SESSION['mensagem'] = "Cadastro realizado com sucesso!";
-    header('Location: ../indexCadastrarOrganizador.php');
+    header('Location: ../indexCadastrarFuncionario.php');
 } else {
     $_SESSION['mensagem'] = "Erro ao cadastrar: " . mysqli_error($conexao);
-    header('Location: ../indexCadastrarOrganizador.php');
+    header('Location: ../indexCadastrarFuncionario.php');
 }
 exit();
 ?>
