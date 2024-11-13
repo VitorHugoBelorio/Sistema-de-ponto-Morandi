@@ -27,7 +27,7 @@ include('loginPHP/verifica_login.php'); // impede que o usuário entre sem reali
                 <h2 class="header-title">Acesso dos Funcionários</h2>
             </div>
             <div class="col-md-6 offset-md-3">
-                <a href="indexPonto.html" class="btn btn-primary option-button w-100">Registrar Ponto</a>
+                <a href="indexPonto.php" class="btn btn-primary option-button w-100">Registrar Ponto</a>
             </div>
         </div>
     </div>
