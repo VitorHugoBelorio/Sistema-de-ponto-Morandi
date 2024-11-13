@@ -5,7 +5,7 @@ include('../../conexao.php'); // Certifique-se de que o caminho está correto
 // Verifique se os campos necessários foram preenchidos
 if(empty($_POST['nomeCompleto']) || empty($_POST['cpf']) || empty($_POST['email'])){
     $_SESSION['mensagem'] = true;
-    header('Location: ../indexCadastrarFuncionario.html');
+    header('Location: ../indexCadastrarFuncionario.php');
     exit();
 }
 
