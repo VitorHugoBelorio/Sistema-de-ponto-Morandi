@@ -38,7 +38,7 @@ session_start();
 
     <!-- Formulário de Cadastro -->
     <div class="container my-5 card-container">
-        <h2 class="text-center mb-4">Cadastro de Funcionário</h2>
+        <h2 class="text-center mb-4">Cadastro de Organizador</h2>
         <form action="cadastrarOrganizadorPHP/cadastrarOrganizador.php" method="POST">
             <div class="mb-3">
                 <label for="nomeCompleto" class="form-label">Nome Completo</label>
