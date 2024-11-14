@@ -1,3 +1,7 @@
+<?php 
+session_start();  
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -11,7 +15,7 @@
     <header class="bg-white p-3 text-center border-bottom">
         <div class="container d-flex justify-content-between align-items-center">
             <h1 class="header-title">Configurar Horários</h1>
-            <a href="indexHomeDiretor.php" class="btn btn-primary">Voltar</a>
+            <a href="indexHomeOrganizador.php" class="btn btn-primary">Voltar</a>
         </div>
     </header>
 
@@ -21,7 +25,7 @@
         <!-- Exibe a mensagem de erro ou sucesso se houver -->
         <?php if (isset($mensagem)) echo $mensagem; ?>
         
-        <form method="POST">
+        <form action="configurarHorarioPHP/configurar.php" method='POST'>
             <div class="mb-3">
                 <label for="inicioExpediente" class="form-label">Início do Expediente</label>
                 <input type="time" name="inicioExpediente" class="form-control" required>
