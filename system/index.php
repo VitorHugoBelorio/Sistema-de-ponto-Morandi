@@ -49,7 +49,7 @@ session_start();
             </div>
             <button type="submit" class="btn btn-success btn-block">Entrar</button>
             <div class="text-center mt-3">
-                <a href="php/indexRecuperarSenha.php">Esqueceu a senha?</a>
+                <a href="html/indexRecuperarSenha.html">Esqueceu a senha?</a>
             </div>
         </form>
     </div>

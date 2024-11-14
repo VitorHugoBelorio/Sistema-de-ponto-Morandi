@@ -8,15 +8,29 @@
     <link rel="stylesheet" href="../css/styleRelatorio.css">
 </head>
 <body>
+    <?php
+    session_start();
+    
+    // Verifica o cargo do usuário na sessão para definir o link "Voltar"
+    $linkVoltar = "";
+    if (isset($_SESSION['cargo'])) {
+        if ($_SESSION['cargo'] == 'ORGANIZADOR') {
+            $linkVoltar = "indexHomeOrganizador.php";
+        } elseif ($_SESSION['cargo'] == 'DIRETOR') {
+            $linkVoltar = "indexHomeDiretor.php";
+        }
+    }
+    ?>
+    
     <!-- Cabeçalho -->
     <header class="bg-white p-3 text-center border-bottom">
         <div class="container d-flex justify-content-between align-items-center">
             <h1 class="header-title">Relatório do Dia</h1>
-            <a href="indexHomeOrganizador.php" class="btn btn-primary">Voltar</a>
+            <a href="<?php echo $linkVoltar; ?>" class="btn btn-primary">Voltar</a>
         </div>
     </header>
 
-    <!-- Tabela de Relatório -->
+    <!-- Conteúdo da Tabela de Relatório -->
     <div class="container my-5">
         <h2 class="text-center mb-4">Funcionários e Horários do Dia</h2>
         <div class="table-responsive">

@@ -17,14 +17,27 @@ $email = mysqli_real_escape_string($conexao, $_POST['email']);
 // Gere a senha usando os últimos 4 dígitos do CPF
 $senha = substr($cpf, -4); // Extrai os últimos 4 dígitos do CPF
 
-// Insira os dados no banco de dados, incluindo a senha gerada
-$query = "INSERT INTO funcionario (pk_funcionario_cpf, nome, senha, email, data_do_registro, cargo) VALUES ('$cpf', '$nomeCompleto', MD5('$senha'), '$email', NOW(), 1);";
+// Insira os dados na tabela organizador
+$queryOrganizador = "INSERT INTO organizador (organizador_cpf, nome, senha, email, data_do_registro, cargo) 
+                     VALUES ('$cpf', '$nomeCompleto', MD5('$senha'), '$email', NOW(), 'ORGANIZADOR')";
 
-if(mysqli_query($conexao, $query)) {
-    $_SESSION['mensagem'] = "Cadastro realizado com sucesso!";
-    header('Location: ../indexCadastrarOrganizador.php');
+if(mysqli_query($conexao, $queryOrganizador)) {
+    // Obtém o ID gerado para o organizador
+    $organizadorId = mysqli_insert_id($conexao);
+
+    // Insira também na tabela geral
+    $queryGeral = "INSERT INTO geral (id_organizador, cpf, nome, senha, email, data_do_registro, cargo)
+                   VALUES ('$organizadorId', '$cpf', '$nomeCompleto', MD5('$senha'), '$email', NOW(), 'ORGANIZADOR')";
+
+    if(mysqli_query($conexao, $queryGeral)) {
+        $_SESSION['mensagem'] = "Cadastro realizado com sucesso!";
+        header('Location: ../indexCadastrarOrganizador.php');
+    } else {
+        $_SESSION['mensagem'] = "Erro ao cadastrar na tabela geral: " . mysqli_error($conexao);
+        header('Location: ../indexCadastrarOrganizador.php');
+    }
 } else {
-    $_SESSION['mensagem'] = "Erro ao cadastrar: " . mysqli_error($conexao);
+    $_SESSION['mensagem'] = "Erro ao cadastrar organizador: " . mysqli_error($conexao);
     header('Location: ../indexCadastrarOrganizador.php');
 }
 exit();

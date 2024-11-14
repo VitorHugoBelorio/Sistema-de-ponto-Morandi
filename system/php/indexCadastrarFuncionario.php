@@ -14,11 +14,24 @@ session_start();
 </head>
 
 <body>
+<?php
+    
+    // Verifica o cargo do usuário na sessão para definir o link "Voltar"
+    $linkVoltar = "";
+    if (isset($_SESSION['cargo'])) {
+        if ($_SESSION['cargo'] == 'ORGANIZADOR') {
+            $linkVoltar = "indexHomeOrganizador.php";
+        } elseif ($_SESSION['cargo'] == 'DIRETOR') {
+            $linkVoltar = "indexHomeDiretor.php";
+        }
+    }
+    ?>
+    
     <!-- Cabeçalho -->
     <header class="bg-white p-3 text-center border-bottom">
         <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="header-title">Cadastrar Novo Funcionário</h1>
-            <a href="indexHomeOrganizador.php" class="btn btn-primary">Voltar</a>
+            <h1 class="header-title">Cadastrar Funcionario</h1>
+            <a href="<?php echo $linkVoltar; ?>" class="btn btn-primary">Voltar</a>
         </div>
     </header>
 
