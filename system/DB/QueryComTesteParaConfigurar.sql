@@ -10,7 +10,9 @@ CREATE TABLE IF NOT EXISTS expediente (
 );
 
 INSERT INTO expediente (inicio_expediente, fim_expediente, duracao_intervalo, latitude, longitude) 
-VALUES ('08:00:00', '17:00:00', '01:00:00', -23.550520, -46.633308);
+VALUES ('08:00:00', '17:00:00', '01:00:00', '-51.409714', '-22.094307');
 
 SELECT * FROM expediente;
 SHOW TABLES;
+
+DROP table expediente;

@@ -39,7 +39,7 @@ if ($expediente) {
         return $raioTerra * $c;
     }
 
-    $raioPermitido = 1.0; // 100 metros
+    $raioPermitido = 10.0; // 100 metros
 
     $distancia = calcularDistancia($latitude_usuario, $longitude_usuario, $latitude_ref, $longitude_ref);
 
@@ -55,22 +55,24 @@ if ($expediente) {
 }
 
 // Consulta para verificar o cargo do usuário (funcionário ou organizador)
-$query = "SELECT id_funcionario, id_organizador, nome FROM funcionario 
-          LEFT JOIN organizador ON funcionario.id_funcionario = organizador.id_funcionario 
+$query = "SELECT pk_id_funcionario, nome FROM funcionario
+          LEFT JOIN ponto ON funcionario.pk_id_funcionario = ponto.id_funcionario
           WHERE senha = '{$senhaMD5}'";
 $result = mysqli_query($conexao, $query);
 $row = mysqli_fetch_assoc($result);
 
 if ($row) {
-    if ($row['id_funcionario']) {
+    if ($row['pk_id_funcionario']) {
         // Funcionário
         $nome_funcionario = $row['nome'];
-        $id_funcionario = $row['id_funcionario'];
+        $pk_id_funcionario = $row['pk_id_funcionario'];
 
         // Verifica se já existe um ponto registrado para o funcionário
-        $query_verificacao = "SELECT * FROM ponto WHERE id_funcionario = '{$id_funcionario}' AND data_registro = CURDATE();";
+        $query_verificacao = "SELECT * FROM ponto WHERE id_funcionario = '{$pk_id_funcionario}' AND data_registro = CURDATE();";
         $result_verificacao = mysqli_query($conexao, $query_verificacao);
-    } elseif ($row['id_organizador']) {
+    } 
+    /*
+    elseif ($row['id_organizador']) {
         // Organizador
         $nome_funcionario = $row['nome']; // Usa o nome do organizador
         $id_organizador = $row['id_organizador'];
@@ -78,22 +80,24 @@ if ($row) {
         // Verifica se já existe um ponto registrado para o organizador
         $query_verificacao = "SELECT * FROM ponto WHERE id_organizador = '{$id_organizador}' AND data_registro = CURDATE();";
         $result_verificacao = mysqli_query($conexao, $query_verificacao);
-    }
+    } */
 
     $registro = mysqli_fetch_assoc($result_verificacao);
 
     $hora_atual = date('H:i'); // Horário atual com horas e minutos
 
     if (!$registro) {
-        if (isset($id_funcionario)) {
+        if (isset($pk_id_funcionario)) {
             // Registro de entrada para funcionário
             $query_registro_entrada = "INSERT INTO ponto (id_funcionario, nome_funcionario, ponto_entrada, data_registro) 
-                                       VALUES ('{$id_funcionario}', '{$nome_funcionario}', '{$hora_atual}', CURDATE())";
-        } elseif (isset($id_organizador)) {
+                                       VALUES ('{$pk_id_funcionario}', '{$nome_funcionario}', '{$hora_atual}', CURDATE())";
+        } 
+        /*
+        elseif (isset($id_organizador)) {
             // Registro de entrada para organizador
             $query_registro_entrada = "INSERT INTO ponto (id_organizador, nome_funcionario, ponto_entrada, data_registro) 
                                        VALUES ('{$id_organizador}', '{$nome_funcionario}', '{$hora_atual}', CURDATE())";
-        }
+        } */
 
         if (mysqli_query($conexao, $query_registro_entrada)) {
             $_SESSION['mensagem_sucesso'] = "Sucesso! O seu ponto de entrada foi registrado, " . htmlspecialchars($nome_funcionario) . ".";
@@ -105,11 +109,13 @@ if ($row) {
     } else {
         if ($registro['ponto_saida'] == NULL) {
             // Atualiza o ponto de saída
-            if (isset($id_funcionario)) {
-                $query_registro_saida = "UPDATE ponto SET ponto_saida = '{$hora_atual}' WHERE id_funcionario = '{$id_funcionario}' AND data_registro = CURDATE()";
-            } elseif (isset($id_organizador)) {
+            if (isset($pk_id_funcionario)) {
+                $query_registro_saida = "UPDATE ponto SET ponto_saida = '{$hora_atual}' WHERE id_funcionario = '{$pk_id_funcionario}' AND data_registro = CURDATE()";
+            } 
+            /*
+            elseif (isset($id_organizador)) {
                 $query_registro_saida = "UPDATE ponto SET ponto_saida = '{$hora_atual}' WHERE id_organizador = '{$id_organizador}' AND data_registro = CURDATE()";
-            }
+            } */
 
             if (mysqli_query($conexao, $query_registro_saida)) {
                 $_SESSION['mensagem_sucesso'] = "Sucesso! O seu ponto de saída foi registrado, " . htmlspecialchars($nome_funcionario) . ".";

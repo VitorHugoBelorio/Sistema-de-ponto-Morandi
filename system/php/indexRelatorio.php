@@ -10,7 +10,7 @@
 <body>
     <?php
     session_start();
-    
+
     // Verifica o cargo do usuário na sessão para definir o link "Voltar"
     $linkVoltar = "";
     if (isset($_SESSION['cargo'])) {
@@ -20,8 +20,73 @@
             $linkVoltar = "indexHomeDiretor.php";
         }
     }
+
+    // Conectar ao banco de dados
+    $host = 'localhost';        // Host do banco de dados
+    $usuario = 'root';          // Usuário do banco de dados
+    $senha = '';                // Senha do banco de dados
+    $banco = 'ponto_morandi';   // Nome do banco de dados
+
+    // Cria a conexão com o banco
+    $conexao = new mysqli($host, $usuario, $senha, $banco);
+
+    // Verifica se a conexão falhou
+    if ($conexao->connect_error) {
+        die("Falha na conexão com o banco de dados: " . $conexao->connect_error);
+    }
+
+    // Query para buscar dados do ponto e expediente
+    $query = "SELECT 
+            nome_funcionario,
+            funcionario_cpf,
+            ponto_entrada,
+            ponto_saida,
+            data_registro,
+            inicio_expediente,
+            fim_expediente
+        FROM ponto
+        LEFT JOIN funcionario ON ponto.id_funcionario = funcionario.pk_id_funcionario
+        JOIN expediente ON 1 = 1 -- Supondo que há apenas um expediente ativo
+        WHERE data_registro = CURDATE(); -- Apenas dados do dia atual
+    ";
+
+    // Executa a consulta
+    $resultado = $conexao->query($query);
+
+    // Verifica se houve erro na execução da consulta
+    if (!$resultado) {
+        die("Erro ao buscar dados: " . $conexao->error);
+    }
+
+    // Processa os resultados da consulta
+    $dados = [];
+    while ($row = $resultado->fetch_assoc()) {
+        $dados[] = $row;
+    }
+
+    // Fecha a conexão com o banco de dados
+    $conexao->close();
+
+    // Função para calcular horas trabalhadas
+    function calcularHorasTrabalhadas($entrada, $saida) {
+        $horarioEntrada = new DateTime($entrada);
+        $horarioSaida = new DateTime($saida);
+
+        $intervalo = $horarioEntrada->diff($horarioSaida);
+        return $intervalo->h . 'h ' . $intervalo->i . 'm';
+    }
+
+    // Função para validar se o horário está dentro do expediente
+    function validarExpediente($inicioExpediente, $fimExpediente, $entrada, $saida) {
+        $inicio = new DateTime($inicioExpediente);
+        $fim = new DateTime($fimExpediente);
+        $entrada = new DateTime($entrada);
+        $saida = new DateTime($saida);
+
+        return ($entrada >= $inicio && $saida <= $fim);
+    }
     ?>
-    
+
     <!-- Cabeçalho -->
     <header class="bg-white p-3 text-center border-bottom">
         <div class="container d-flex justify-content-between align-items-center">
@@ -45,22 +110,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Exemplo de Linha de Funcionário -->
-                    <tr>
-                        <td>João da Silva</td>
-                        <td>123.456.789-00</td>
-                        <td>08:00</td>
-                        <td>17:00</td>
-                        <td>8h</td>
-                    </tr>
-                    <tr>
-                        <td>Maria Souza</td>
-                        <td>987.654.321-00</td>
-                        <td>09:00</td>
-                        <td>18:00</td>
-                        <td>8h</td>
-                    </tr>
-                    <!-- Adicione outras linhas dinamicamente conforme os dados -->
+                    <?php foreach ($dados as $dado): ?>
+                        <tr>
+                            <td><?php echo $dado['nome_funcionario']; ?></td>
+                            <td><?php echo $dado['funcionario_cpf']; ?></td>
+                            <td><?php echo $dado['ponto_entrada']; ?></td>
+                            <td><?php echo $dado['ponto_saida'] ?? '---'; ?></td>
+                            <td>
+                                <?php
+                                if ($dado['ponto_saida']) {
+                                    if (validarExpediente($dado['inicio_expediente'], $dado['fim_expediente'], $dado['ponto_entrada'], $dado['ponto_saida'])) {
+                                        echo calcularHorasTrabalhadas($dado['ponto_entrada'], $dado['ponto_saida']);
+                                    } else {
+                                        echo '<span class="text-danger">Fora do expediente</span>';
+                                    }
+                                } else {
+                                    echo '---';
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
