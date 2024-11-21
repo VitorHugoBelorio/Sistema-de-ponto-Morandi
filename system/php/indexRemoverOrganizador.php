@@ -19,10 +19,21 @@
     <!-- Formulário de Remoção -->
     <div class="container my-5 card-container">
         <h2 class="text-center mb-4">Remoção de Organizador</h2>
-        <form>
+        <form method="POST" action="removerOrganizadorPHP/removerOrganizador.php">
+            <?php
+            // Exibe mensagens de feedback se existirem
+            if (isset($_SESSION['sucesso_remocao'])) {
+                echo "<div class='alert alert-success text-center'>" . htmlspecialchars($_SESSION['sucesso_remocao']) . "</div>";
+                unset($_SESSION['sucesso_remocao']);
+            }
+            if (isset($_SESSION['erro_remocao'])) {
+                echo "<div class='alert alert-danger text-center'>" . htmlspecialchars($_SESSION['erro_remocao']) . "</div>";
+                unset($_SESSION['erro_remocao']);
+            }
+            ?>
             <div class="mb-3">
                 <label for="cpf" class="form-label">CPF do Organizador</label>
-                <input type="text" class="form-control" id="cpf" placeholder="Digite o CPF" required>
+                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Digite o CPF" required>
             </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-success w-100 py-3">Remover</button>

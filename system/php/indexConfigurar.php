@@ -15,7 +15,7 @@ session_start();
     <header class="bg-white p-3 text-center border-bottom">
         <div class="container d-flex justify-content-between align-items-center">
             <h1 class="header-title">Configurar Horários</h1>
-            <a href="indexHomeOrganizador.php" class="btn btn-primary">Voltar</a>
+            <a href="indexHomeDiretor.php" class="btn btn-primary">Voltar</a>
         </div>
     </header>
 

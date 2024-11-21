@@ -10,6 +10,7 @@
 <body>
     <?php
     session_start();
+    include('../conexao.php');
 
     // Verifica o cargo do usuário na sessão para definir o link "Voltar"
     $linkVoltar = "";
@@ -22,18 +23,7 @@
     }
 
     // Conectar ao banco de dados
-    $host = 'localhost';        // Host do banco de dados
-    $usuario = 'root';          // Usuário do banco de dados
-    $senha = '';                // Senha do banco de dados
-    $banco = 'ponto_morandi';   // Nome do banco de dados
-
-    // Cria a conexão com o banco
-    $conexao = new mysqli($host, $usuario, $senha, $banco);
-
-    // Verifica se a conexão falhou
-    if ($conexao->connect_error) {
-        die("Falha na conexão com o banco de dados: " . $conexao->connect_error);
-    }
+    
 
     // Query para buscar dados do ponto e expediente
     $query = "SELECT 
@@ -51,7 +41,7 @@
     ";
 
     // Executa a consulta
-    $resultado = $conexao->query($query);
+    $resultado = mysqli_query($conexao, $query);
 
     // Verifica se houve erro na execução da consulta
     if (!$resultado) {
@@ -86,6 +76,19 @@
         return ($entrada >= $inicio && $saida <= $fim);
     }
     ?>
+    <?php
+    
+    // Verifica o cargo do usuário na sessão para definir o link "Voltar"
+    $linkVoltar = "";
+    if (isset($_SESSION['cargo'])) {
+        if ($_SESSION['cargo'] == 'ORGANIZADOR') {
+            $linkVoltar = "indexHomeOrganizador.php";
+        } elseif ($_SESSION['cargo'] == 'DIRETOR') {
+            $linkVoltar = "indexHomeDiretor.php";
+        }
+    }
+    ?>
+    
 
     <!-- Cabeçalho -->
     <header class="bg-white p-3 text-center border-bottom">

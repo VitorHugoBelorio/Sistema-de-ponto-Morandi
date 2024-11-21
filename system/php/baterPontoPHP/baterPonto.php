@@ -39,7 +39,7 @@ if ($expediente) {
         return $raioTerra * $c;
     }
 
-    $raioPermitido = 10.0; // 100 metros
+    $raioPermitido = 1.0; // 100 metros
 
     $distancia = calcularDistancia($latitude_usuario, $longitude_usuario, $latitude_ref, $longitude_ref);
 
