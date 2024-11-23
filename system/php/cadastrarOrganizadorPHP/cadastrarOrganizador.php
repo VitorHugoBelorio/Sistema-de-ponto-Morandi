@@ -14,6 +14,17 @@ $nomeCompleto = strtoupper(mysqli_real_escape_string($conexao, $_POST['nomeCompl
 $cpf = preg_replace("/[^0-9]/", "", mysqli_real_escape_string($conexao, $_POST['cpf'])); // Remove pontos e traços do CPF
 $email = mysqli_real_escape_string($conexao, $_POST['email']);
 
+// Verificar se o CPF ou nome já estão cadastrados
+$queryVerificar = "SELECT * FROM organizador WHERE organizador_cpf = '$cpf' OR nome = '$nomeCompleto'";
+$resultadoVerificar = mysqli_query($conexao, $queryVerificar);
+
+if (mysqli_num_rows($resultadoVerificar) > 0) {
+    // Se o CPF ou nome já existirem, exibe uma mensagem de erro
+    $_SESSION['mensagem'] = "Já existe um organizador cadastrado com este CPF ou Nome.";
+    header('Location: ../indexCadastrarOrganizador.php');
+    exit();
+}
+
 // Gere a senha usando os últimos 4 dígitos do CPF
 $senha = substr($cpf, -4); // Extrai os últimos 4 dígitos do CPF
 
